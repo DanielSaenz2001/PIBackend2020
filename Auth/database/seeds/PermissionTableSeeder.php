@@ -26,7 +26,7 @@ class PermissionTableSeeder extends Seeder
         ]);
         Permission::create([
             'name' => 'Editar Egresados',
-            'slug' => 'users.index',
+            'slug' => 'users.edit',
             'descripcion' => 'Editar los usuarios del sistema',
         ]);
         Permission::create([
@@ -48,7 +48,7 @@ class PermissionTableSeeder extends Seeder
         ]);
         Permission::create([
             'name' => 'Editar roles',
-            'slug' => 'users.index',
+            'slug' => 'users.edit',
             'descripcion' => 'Editar los usuarios del sistema',
         ]);
         Permission::create([
