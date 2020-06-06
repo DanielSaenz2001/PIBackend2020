@@ -11,36 +11,36 @@ Route::group([
     'middleware' => 'api',
 
 ], function () {
-    //-----------------------API-JWT------------------------\\
-    Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signup');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
+        //-----------------------API-JWT------------------------\\
+        Route::post('login', 'AuthController@login');
+        Route::post('signup', 'AuthController@signup');
+        Route::post('logout', 'AuthController@logout');
+        Route::post('refresh', 'AuthController@refresh');
+        
+        Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
+        Route::post('resetPassword', 'ChangePasswordController@process');
+        //-----------------------/API-JWT------------------------\\
+
+        //---------------------API-PERSONA----------------------\\
+
+
+        Route::get('persona', 'PersonaController@index');
+        Route::get('persona/{id}','PersonaController@show');
+        Route::post('persona', 'PersonaController@create');
+        Route::put('persona/{id}', 'PersonaController@update');
+        Route::delete('persona/{id}', 'PersonaController@destroy');
+        //---------------------/API-PERSONA----------------------\\
+
     
-    Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
-    Route::post('resetPassword', 'ChangePasswordController@process');
-    //-----------------------/API-JWT------------------------\\
-
-    //---------------------API-PERSONA----------------------\\
-    Route::get('users', 'PersonaController@PersonasNull');
-    Route::get('usuario', 'PersonaController@me');
-    Route::get('persona', 'PersonaController@index');
-    Route::get('persona/{id}','PersonaController@show');
-    
-    Route::post('persona', 'PersonaController@create');
-    Route::put('persona/{id}', 'PersonaController@update');
-    Route::delete('persona/{id}', 'PersonaController@destroy');
-    //---------------------/API-PERSONA----------------------\\
-
-    
 
 
-    Route::post('image', 'PersonaController@upload');
-
-
-        Route::get('personaUsuarios', 'PersonaController@usuarios');
-        Route::put('personaUsuarios/{id}', 'PersonaController@usuariosAC');
-        Route::put('personaUsuarioss/{id}', 'PersonaController@usuariosROL');
+        Route::post('image', 'PersonaController2@upload');
+        Route::get('users', 'PersonaController2@PersonasNull');
+        Route::get('usuario', 'PersonaController2@me');
+        Route::get('validar', 'PersonaController2@validacion');
+        Route::get('personaUsuarios', 'PersonaController2@usuarios');
+        Route::put('personaUsuarios/{id}', 'PersonaController2@usuariosAC');
+        Route::put('personaUsuarioss/{id}', 'PersonaController2@usuariosROL');
 
         /***************************admin********************************/
         Route::get('adminpersona/{id}', 'AdminController@persona');
@@ -53,6 +53,7 @@ Route::group([
         Route::get('adminexperiencia/{id}', 'AdminController@experiencia');
         /****************************admin****************************** */
 
-
+        Route::put('userupdate/{id}', 'PersonaController2@updatepersonadi');
+        Route::get('me2', 'AuthController@me');
 });
 

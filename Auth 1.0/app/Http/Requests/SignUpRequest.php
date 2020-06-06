@@ -24,10 +24,10 @@ class SignUpRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
+            //'name' => 'required',
+            'email' => 'required|email|unique:users|not_regex:/[a-zA-Z0-9._%+-]+@[u]+\.[p]+\.[e]+\.[u]+\.[e]+\.[d]+\.[u]+\.[p]+\.[e]/',
             'password' => 'required|confirmed',
-            'personaid' => 'required',
+            //'personaid' => 'required',
         ];
     }
 }

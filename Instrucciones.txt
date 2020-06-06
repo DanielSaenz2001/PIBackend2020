@@ -1,0 +1,4 @@
+En el Auth 1.0 poner 
+php artisan jwt:secret
+php artisan cache:clear
+php artisan config:clear
