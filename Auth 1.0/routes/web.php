@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+$s = 'social.';
+Route::get('/social/redirect/{provider}', [
+	'as' => $s . 'redirect', 
+	'uses' => 'SocialController@getSocialRedirect'
+]);
+Route::get('/social/handle/{provider}', [
+	'as' => $s . 'handle', 
+	'uses' => 'SocialController@getSocialHandle'
+]);

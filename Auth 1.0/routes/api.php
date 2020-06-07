@@ -55,5 +55,15 @@ Route::group([
 
         Route::put('userupdate/{id}', 'PersonaController2@updatepersonadi');
         Route::get('me2', 'AuthController@me');
+        // Social Authentication Routes
+$s = 'social.';
+Route::get('/social/redirect/{provider}', [
+	'as' => $s . 'redirect', 
+	'uses' => 'SocialController@getSocialRedirect'
+]);
+Route::get('/social/handle/{provider}', [
+	'as' => $s . 'handle', 
+	'uses' => 'SocialController@getSocialHandle'
+]);
 });
 
