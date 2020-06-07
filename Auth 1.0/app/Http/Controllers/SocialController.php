@@ -68,8 +68,7 @@ class SocialController extends Controller
             // "como es cuenta ya verificada, no recibirá email de activacion"
             $user->active = 1;
 
-            // emitimos evento de logueado
-            //event(new \Illuminate\Auth\Events\Login($user, true));
+
 
             $user->avatar = $account->avatar;
 
