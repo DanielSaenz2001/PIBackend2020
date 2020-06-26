@@ -28,6 +28,7 @@ class PersonaController extends Controller
         $persona->est_civil = $request->est_civil;
         $persona->sexo = $request->sexo;
         $persona->dependiente = $request->dependiente;
+        $persona->user_id = $request->user_id;
         $persona->save();
         return response()->json($persona);
     }
@@ -41,9 +42,4 @@ class PersonaController extends Controller
         persona::findOrFail($id)->update($request->all());
         return response()->json($request->all());
     }
-    public function destroy($id)
-    {
-        persona::findOrFail($id)->delete();
-    }
-    
 }

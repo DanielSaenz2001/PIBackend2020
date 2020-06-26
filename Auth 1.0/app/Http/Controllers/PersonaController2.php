@@ -27,7 +27,7 @@ class PersonaController2 extends Controller
 
     public function updatepersonadi(Request $request, $id){
         $user = User::findOrFail($id);
-        $user->personaid = $request[0];
+        $user->validado = $request[0];
         $user->save();
         return response()->json($user);
     }

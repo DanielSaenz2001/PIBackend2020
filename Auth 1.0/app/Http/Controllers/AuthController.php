@@ -33,6 +33,8 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+
+        //return response()->json();
     }
 
     public function signup(SignUpRequest $request)
@@ -87,7 +89,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()->name
+            'user' => auth()->user()->id
         ]);
     }
 }

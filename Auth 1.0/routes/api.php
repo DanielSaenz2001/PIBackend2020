@@ -28,7 +28,6 @@ Route::group([
         Route::get('persona/{id}','PersonaController@show');
         Route::post('persona', 'PersonaController@create');
         Route::put('persona/{id}', 'PersonaController@update');
-        Route::delete('persona/{id}', 'PersonaController@destroy');
         //---------------------/API-PERSONA----------------------\\
 
     
@@ -55,6 +54,7 @@ Route::group([
 
         Route::put('userupdate/{id}', 'PersonaController2@updatepersonadi');
         Route::get('me2', 'AuthController@me');
+
         // Social Authentication Routes
 $s = 'social.';
 Route::get('/social/redirect/{provider}', [

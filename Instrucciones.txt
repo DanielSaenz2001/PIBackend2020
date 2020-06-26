@@ -1,13 +1,17 @@
+En todos los proyectos poner:
+composer i
+
 En el Auth 1.0 poner en el cmd:
 php artisan jwt:secret
 php artisan cache:clear
 php artisan config:clear
 
-MPaises todavia nada
-MEventosSugerencias todavia no se esta usando
 
-MPaises: php artisan serve --port=8080
 Auth 1.0: php artisan serve
+MPaises: php artisan serve --port=8080
+MEventosComentarios: php artisan serve --port=8160
+MUsersRoles: php artisan serve --port=8240
+
 
 subir la base de datos prueba esta se actualizara por tablas utilizadas :3
 para esto debemos crear la base de datos laravel uft8_spanish_ci

@@ -37,7 +37,13 @@ class SocialController extends Controller
         } else {
             return response()->error('social_access_denied', 401);
         }
+        
+        if (explode("@", $providerUser->email)[1] !== 'upeu.edu.pe') {
+            return redirect()->to('http://localhost:4200/')->withErrors([
+                'email' => 'You must be a member of the 131Studios Organization to Login',
+            ]);
 
+        }
         $account = Social::whereProvider($provider)
                         ->whereProviderUserId($providerUser->id)
                         ->first();
@@ -58,6 +64,7 @@ class SocialController extends Controller
                 'name'   => $providerUser->name,
                 'active' => true,
             ]);
+            
 
             // para relaciones "belongTo" o "oneToMany" inversa
             $account->user()->associate($user);
