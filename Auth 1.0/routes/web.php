@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+// Social Authentication Routes
 $s = 'social.';
 Route::get('/social/redirect/{provider}', [
 	'as' => $s . 'redirect', 

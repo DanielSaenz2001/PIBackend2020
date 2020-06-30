@@ -29,7 +29,7 @@ class UserController extends Controller
         $dni =$request->dni;
         $rol =$request->rol;
 
-        if($rol == null && $rol == ''){
+        if($rol == null || $rol == '' || $rol == 'null'){
             $users = Persona::name($nombre)
             ->join('users', 'personas.user_id', '=', 'users.id')
             ->join('roles_users','roles_users.user_id','users.id')

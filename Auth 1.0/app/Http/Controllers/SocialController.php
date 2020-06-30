@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Social;
 use App\User;
 use Carbon\Carbon;
+use App\RolesUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
@@ -28,21 +29,18 @@ class SocialController extends Controller
         return Socialite::driver($provider)->redirect();
     }
 
-
-
     public function getSocialHandle(Request $request, $provider)
     {
         if ($request->has('code')) {
-            $providerUser = Socialite::driver('google')->user();
+            $providerUser = Socialite::driver($provider)->user();
         } else {
             return response()->error('social_access_denied', 401);
         }
-        
         if (explode("@", $providerUser->email)[1] !== 'upeu.edu.pe') {
             return redirect()->to('http://localhost:4200/')->withErrors([
                 'email' => 'You must be a member of the 131Studios Organization to Login',
             ]);
-
+        
         }
         $account = Social::whereProvider($provider)
                         ->whereProviderUserId($providerUser->id)
@@ -60,50 +58,41 @@ class SocialController extends Controller
             $user = User::firstOrCreate([
                 'email' => $providerUser->email,
             ], [
-                'role'   => 'user',
+                'password'=>  null,
+                'validado' => FALSE,
+                'autorizado'   => true,
                 'name'   => $providerUser->name,
                 'active' => true,
             ]);
-            
 
             // para relaciones "belongTo" o "oneToMany" inversa
             $account->user()->associate($user);
             $account->save();
+
+            $roluser = new RolesUser();
+            $roluser->role_id = 3;
+            $roluser->user_id = $user->id;
+            $roluser->save();
         }
         try
         {
             // "como es cuenta ya verificada, no recibirá email de activacion"
             $user->active = 1;
 
-
+            // emitimos evento de logueado
+            //event(new \Illuminate\Auth\Events\Login($user, true));
 
             $user->avatar = $account->avatar;
 
             $token = JWTAuth::fromUser($user);
 
+            //return response()->success(compact('user', 'token'));
+            auth()->login($user);
+            //return response()->json($user->id);
             return redirect()->to('http://localhost:4200/?token='.$token);
-
-            
 
         } catch (Exception $e) {
             return response()->error('error_on_login_user', $e->getStatusCode());
         }
-    }
-
-    public function login($token)
-    {
-
-        
-
-        return $this->respondWithToken($token);
-    }
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-            'user' => auth()->user()->name
-        ]);
     }
 }

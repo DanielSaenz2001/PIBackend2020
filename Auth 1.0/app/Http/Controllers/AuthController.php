@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
 use App\User;
+use App\RolesUser;
 
 class AuthController extends Controller
 {
@@ -39,7 +40,12 @@ class AuthController extends Controller
 
     public function signup(SignUpRequest $request)
     {
-          User::create($request->all());
+        $user = User::create($request->all());
+
+        $roluser = new RolesUser();
+        $roluser->role_id = 3;
+        $roluser->user_id = $user->id;
+        $roluser->save();
         return $this->login($request);
 
     }

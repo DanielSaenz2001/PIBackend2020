@@ -38,8 +38,11 @@ Route::group([
         Route::get('usuario', 'PersonaController2@me');
         Route::get('validar', 'PersonaController2@validacion');
         Route::get('personaUsuarios', 'PersonaController2@usuarios');
+        Route::get('personaEgresado', 'PersonaController2@egresado');
+
         Route::put('personaUsuarios/{id}', 'PersonaController2@usuariosAC');
-        Route::put('personaUsuarioss/{id}', 'PersonaController2@usuariosROL');
+        Route::put('personaUsuariosRol/{id}', 'PersonaController2@usuariosROL');
+        
 
         /***************************admin********************************/
         Route::get('adminpersona/{id}', 'AdminController@persona');
@@ -55,7 +58,12 @@ Route::group([
         Route::put('userupdate/{id}', 'PersonaController2@updatepersonadi');
         Route::get('me2', 'AuthController@me');
 
+        Route::get('DatosPersona', 'ValidadoresController@persona');
+        Route::get('RolUsuario', 'ValidadoresController@Rol');
+        
         // Social Authentication Routes
+        
+});
 $s = 'social.';
 Route::get('/social/redirect/{provider}', [
 	'as' => $s . 'redirect', 
@@ -65,5 +73,3 @@ Route::get('/social/handle/{provider}', [
 	'as' => $s . 'handle', 
 	'uses' => 'SocialController@getSocialHandle'
 ]);
-});
-

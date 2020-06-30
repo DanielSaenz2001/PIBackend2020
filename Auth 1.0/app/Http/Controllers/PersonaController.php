@@ -21,13 +21,13 @@ class PersonaController extends Controller
         $persona->nombre = $request->nombre;
         $persona->ap_paterno = $request->ap_paterno;
         $persona->ap_materno = $request->ap_materno;
-        $persona->provincia = $request->provincia;
+        $persona->distrito = $request->distrito;
         $persona->dni = $request->dni;
         $persona->email = $request->email;
         $persona->fec_nacimiento = $request->fec_nacimiento;
         $persona->est_civil = $request->est_civil;
         $persona->sexo = $request->sexo;
-        $persona->dependiente = $request->dependiente;
+        $persona->validado = 0;
         $persona->user_id = $request->user_id;
         $persona->save();
         return response()->json($persona);
