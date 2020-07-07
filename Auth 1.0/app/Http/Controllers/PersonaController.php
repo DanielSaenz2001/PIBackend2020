@@ -42,4 +42,11 @@ class PersonaController extends Controller
         persona::findOrFail($id)->update($request->all());
         return response()->json($request->all());
     }
+    public function updatePersona(Request $request, $id)
+    {
+        $persona = persona::findOrFail($id);
+        $persona->est_civil = $request->est_civil;
+        $persona->save();
+        return response()->json($persona);
+    }
 }

@@ -28,6 +28,7 @@ Route::group([
         Route::get('persona/{id}','PersonaController@show');
         Route::post('persona', 'PersonaController@create');
         Route::put('persona/{id}', 'PersonaController@update');
+        Route::put('personaPersona/{id}', 'PersonaController@updatePersona');
         //---------------------/API-PERSONA----------------------\\
 
     
@@ -38,7 +39,9 @@ Route::group([
         Route::get('usuario', 'PersonaController2@me');
         Route::get('validar', 'PersonaController2@validacion');
         Route::get('personaUsuarios', 'PersonaController2@usuarios');
-        Route::get('personaEgresado', 'PersonaController2@egresado');
+        Route::get('personaEgresado', 'PersonaController2@egresados');
+
+        Route::get('egresadoPostgrado', 'PersonaController2@postgradosexperiencia');
 
         Route::put('personaUsuarios/{id}', 'PersonaController2@usuariosAC');
         Route::put('personaUsuariosRol/{id}', 'PersonaController2@usuariosROL');

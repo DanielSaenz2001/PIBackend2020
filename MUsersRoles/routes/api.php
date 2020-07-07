@@ -16,12 +16,16 @@ Route::group([
        
 
         Route::put('userupdate/{id}', 'PersonaController2@updatepersonadi');
-        Route::get('me2', 'AuthController@me');
 
         Route::get('usuarios', 'UserController@index');
+        Route::get('usuarios/{id}', 'UserController@show');
+        Route::get('roles/{id}', 'UserController@rolesshow');
+        Route::get('autorizadousuario/{id}', 'UserController@autorizadousuarioshow');
         Route::post('usuariosFiltro', 'UserController@filtro');
-
-        // Social Authentication Routes
-
+        Route::put('actualizarRolUsuario/{id}', 'UserController@actualizarRolUsuario');
+        
+        Route::put('actualizarAutorizacionUsuario/{id}', 'UserController@actualizarAutorizacionUsuario');
+        // actualizarRolUsuario actualizarAutorizacionUsuario
+        
 });
 
