@@ -32,4 +32,14 @@ Route::put('ComentariosUpdateRespuesta/{id}', 'ComentariosController@Respuesta')
 Route::delete('Comentarios/{id}', 'ComentariosController@destroy');
 Route::get('ComentariosDispo', 'ComentariosController@norespuesta');
 //-----------------------/API-Comentario------------------------\\
+
+Route::get('paises', 'PaisController@paises');
+Route::get('departamentos', 'PaisController@departamentos');
+Route::get('provincias', 'PaisController@provincias');
+Route::get('lugares', 'PaisController@lugares');
+Route::get('distritos', 'PaisController@distritos');
+
+Route::get('facultades', 'UPEUContoller@facultades');
+Route::get('escuelas', 'UPEUContoller@escuelas');
+Route::post('egresaoescuela', 'UPEUContoller@egresadoescuela');
 });

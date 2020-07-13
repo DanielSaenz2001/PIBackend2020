@@ -8,10 +8,12 @@ php artisan config:clear
 
 
 Auth 1.0: php artisan serve
-MPaises: php artisan serve --port=8080
-MEventosComentarios: php artisan serve --port=8160
-MUsersRoles: php artisan serve --port=8240
+MEventosComentariosPaisesFacultades: php artisan serve --port=8080
 
+MUsersRoles: php artisan serve --port=8240
+MEgresado: php artisan serve --port=8320
+
+MUPEUEGRESADOS: php artisan serve --port=8800
 
 subir la base de datos prueba esta se actualizara por tablas utilizadas :3
 para esto debemos crear la base de datos laravel uft8_spanish_ci
