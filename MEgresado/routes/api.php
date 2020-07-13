@@ -38,6 +38,7 @@ Route::post('experiencia', 'ExperienciaLaboralesController@create');
 Route::put('experiencia/{id}', 'ExperienciaLaboralesController@update');
 Route::delete('experiencia/{id}', 'ExperienciaLaboralesController@destroy');
 
+Route::post('egresadocodigo', 'EgresadosController@EgresadoCodigo');
 
 
 Route::put('administradoregresado/{id}','EgresadosController@administrador');

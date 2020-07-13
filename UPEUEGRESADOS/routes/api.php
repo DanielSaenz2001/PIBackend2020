@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Http\Request;
-
+header('Access-Control-Allow-Origin: *'); 
+header("Access-Control-Allow-Credentials: true");
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header('Access-Control-Max-Age: 1000');
+header('Access-Control-Allow-Headers: Authorization,Origin, Content-Type, X-Auth-Token, X-XSRF-TOKEN');
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +17,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('egresado/codigo/{id}', 'EgresadosController@egresadocodigo');
+Route::get('egresado', 'EgresadosController@index');
+Route::PUT('egresado/{id}', 'EgresadosController@show');
