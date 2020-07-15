@@ -8,22 +8,7 @@ use Illuminate\Http\Request;
 
 class PersonaController2 extends Controller
 {
-    public function me()
-    {
-        $result = User::join('personas', 'personaid', '=', 'personas.id')
-        ->join('provincias', 'personas.provincia', '=', 'provincias.id')
-        ->join('departamentos', 'provincias.dep_id', '=', 'departamentos.id')
-        ->join('paises', 'departamentos.pais_id', '=', 'paises.id')
-        
-        
-        ->where('users.id','=',auth()->user()->id)
-        ->select('users.name as usuario'/*,'users.avatar'*/,'personas.nombre','personas.ap_materno'/*,'users.rol'*/,
-        'personas.ap_paterno', 'paises.nombre as pais',
-        'personas.email','personas.fec_nacimiento','personas.est_civil','personas.sexo'/*,'personas.activo'*/
-        ,'personas.dependiente','departamentos.nombre as departamentos','personas.id as persona_ID','users.id as user_ID','provincias.nombre as provincia', 'personas.dni')
-        ->first();
-        return response()->json($result);
-    }
+
 
     public function updatepersonadi(Request $request, $id){
         $user = User::findOrFail($id);

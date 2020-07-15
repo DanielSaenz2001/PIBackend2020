@@ -50,6 +50,18 @@ class AuthController extends Controller
 
     }
 
+    public function signupAdministrador(SignUpRequest $request)
+    {
+        $user = User::create($request->all());
+
+        $roluser = new RolesUser();
+        $roluser->role_id = 3;
+        $roluser->user_id = $user->id;
+        $roluser->save();
+        return response()->json($user);
+
+    }
+
     /**
      * Get the authenticated User.
      *
