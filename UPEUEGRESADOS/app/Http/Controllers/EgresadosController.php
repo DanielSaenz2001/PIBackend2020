@@ -10,7 +10,7 @@ class EgresadosController extends Controller
     
     public function egresadocodigo($id)
     {
-        $egresado = Egresados::where('egresados.codigo','=',$id)
+        $egresado = Egresados::where('egresados.Codigo','=',$id)
         ->first();
 
         return response()->json($egresado);
