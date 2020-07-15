@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
 use App\User;
 use App\RolesUser;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -35,7 +36,7 @@ class AuthController extends Controller
 
         return $this->respondWithToken($token);
 
-        //return response()->json();
+        //return response()->json(); 
     }
 
     public function signup(SignUpRequest $request)
@@ -50,9 +51,18 @@ class AuthController extends Controller
 
     }
 
-    public function signupAdministrador(SignUpRequest $request)
+    public function signupadministrador(Request $request)
     {
-        $user = User::create($request->all());
+        $user = User::firstOrCreate([
+            'email' => $request->email,
+        ], [
+            'password'=>  123456,
+            'validado' => true,
+            'autorizado'   => true,
+            'active' => true,
+        ]);
+
+
 
         $roluser = new RolesUser();
         $roluser->role_id = 3;

@@ -17,6 +17,7 @@ Route::group([
         Route::post('logout', 'AuthController@logout');
         Route::post('refresh', 'AuthController@refresh');
         
+        Route::post('signupadministrador', 'AuthController@signupadministrador');
         Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
         Route::post('resetPassword', 'ChangePasswordController@process');
         //-----------------------/API-JWT------------------------\\
@@ -27,6 +28,7 @@ Route::group([
         Route::get('persona', 'PersonaController@index');
         Route::get('persona/{id}','PersonaController@show');
         Route::post('persona', 'PersonaController@create');
+        Route::post('personaadministrador', 'PersonaController@createAdministrador');
         Route::put('persona/{id}', 'PersonaController@update');
         Route::put('personaPersona/{id}', 'PersonaController@updatePersona');
         //---------------------/API-PERSONA----------------------\\

@@ -43,7 +43,7 @@ class EgresadosController extends Controller
         'personas.ap_paterno', 
         'personas.dni','escuelas.nombre as escuela','facultades.nombre as facultad',
         'egresados.codigo as codigo','egresados.estado as estado','egresados.celular as celular',
-        'egresados.id')->first();
+        'egresados.id','egresados.fecha_estado')->first();
         
       
         if($egresado !== null){
@@ -83,6 +83,7 @@ class EgresadosController extends Controller
         $egresados->ingreso  = $request->ingreso;
         $egresados->egreso   = $request->egreso;
         $egresados->estado   = "0";
+        $egresados->fecha_estado   = null;
         $egresados->save();
         return response()->json($egresados);
     }
