@@ -50,18 +50,7 @@ class PersonaController extends Controller
         $request->distrito = str_replace($no_permitidas, $permitidas ,$request->distrito);
         $request->distrito =strtoupper($request->distrito);
         $distrito = Distritos::where('distritos.nombre','=',$request->distrito)->first();
-        /*$persona = new Persona();
-        $persona->nombre = $request->nombre;
-        $persona->ap_paterno = $request->ap_paterno;
-        $persona->ap_materno = $request->ap_materno;
-        $persona->distrito = $request->distrito;
-        $persona->email = $request->email;
-        $persona->fec_nacimiento = $request->fec_nacimiento;
-        $persona->est_civil = $request->est_civil;
-        $persona->sexo = $request->sexo;
-        $persona->validado = 1;
-        $persona->user_id = $request->user_id;
-        $persona->save();*/
+
         if($distrito==null){
             $persona = Persona::firstOrCreate([
                 'dni' => $request->dni,

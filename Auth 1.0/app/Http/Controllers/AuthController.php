@@ -68,7 +68,7 @@ class AuthController extends Controller
         $roluser->role_id = 3;
         $roluser->user_id = $user->id;
         $roluser->save();
-        return response()->json($user);
+        return response()->json($user->id);
 
     }
 
