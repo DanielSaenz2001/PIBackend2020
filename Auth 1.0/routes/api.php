@@ -65,8 +65,21 @@ Route::group([
 
         Route::get('DatosPersona', 'ValidadoresController@persona');
         Route::get('RolUsuario', 'ValidadoresController@Rol');
+        Route::post('usuariosFiltro', 'UserController@filtro');
+        Route::post('addEgresado', 'AuthController@addEgresado');
+        Route::post('addEscuela', 'AuthController@addEscuela');
         
-        // Social Authentication Routes
+
+
+        Route::get('usuarios', 'UserController@index');
+        Route::get('usuarios/{id}', 'UserController@show');
+        Route::get('roles/{id}', 'UserController@rolesshow');
+        Route::get('autorizadousuario/{id}', 'UserController@autorizadousuarioshow');
+        Route::post('usuariosFiltro', 'UserController@filtro');
+        Route::put('actualizarRolUsuario/{id}', 'UserController@actualizarRolUsuario');
+        
+        Route::put('actualizarAutorizacionUsuario/{id}', 'UserController@actualizarAutorizacionUsuario');
+        // Social Authentication Routes 
         
 });
 $s = 'social.';

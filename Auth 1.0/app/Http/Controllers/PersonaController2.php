@@ -131,18 +131,21 @@ class PersonaController2 extends Controller
         ->select('experiencia_laborales.id','experiencia_laborales.empresa','experiencia_laborales.rubro_empresa'
         ,'experiencia_laborales.cargo_ocupar','experiencia_laborales.area','experiencia_laborales.inicio'
         ,'experiencia_laborales.final','experiencia_laborales.final','experiencia_laborales.descripcion','experiencia_laborales.satisfacion'
-        ,'experiencia_laborales.egresado_id','egresados.estado as estado','experiencia_laborales.validado','experiencia_laborales.evidencia')
+        ,'experiencia_laborales.egresado_id','egresados.estado as estado','experiencia_laborales.validado','experiencia_laborales.evidencia'
+        )
         ->get();
 
         $estado = User::join('personas', 'users.id', '=', 'personas.user_id')
         ->join('egresados', 'personas.id', '=', 'egresados.persona_id')
         ->where('users.id','=',auth()->user()->id)
-        ->select('egresados.estado as estado')
+        ->select('egresados.estado as estado','egresados.id as egresado_id','egresados.estado','egresados.fecha_estado')
         ->first();
 
         return response()->json(['postgrados' => $postgrados, 
         'experiencia' => $experiencia,
         'estado'=>$estado]);
     }
+
+    
 
 }

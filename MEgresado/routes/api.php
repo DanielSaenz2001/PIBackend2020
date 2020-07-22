@@ -14,7 +14,7 @@ header('Access-Control-Allow-Headers: Authorization,Origin, Content-Type, X-Auth
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
-|
+| 
 */
 Route::get('egresado', 'EgresadosController@index');
 Route::get('egresado/{id}','EgresadosController@show');
@@ -39,6 +39,8 @@ Route::put('experiencia/{id}', 'ExperienciaLaboralesController@update');
 Route::delete('experiencia/{id}', 'ExperienciaLaboralesController@destroy');
 
 Route::post('egresadocodigo', 'EgresadosController@EgresadoCodigo');
+Route::get('egresadome', 'PruebaController@me');
+Route::put('egresadoestado/{id}', 'EgresadosController@updateestado');
 
 
 Route::put('administradoregresado/{id}','EgresadosController@administrador');

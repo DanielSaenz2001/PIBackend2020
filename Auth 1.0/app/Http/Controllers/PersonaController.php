@@ -40,16 +40,17 @@ class PersonaController extends Controller
 
         $no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
         $permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
-
-        if($request->sexo="M"){
+        
+        if($request->sexo=="M"){
             $request->sexo="Masculino";
         }
-        if($request->sexo="F"){
+        if($request->sexo=="F"){
             $request->sexo="Femenino";
         }
         $request->distrito = str_replace($no_permitidas, $permitidas ,$request->distrito);
         $request->distrito =strtoupper($request->distrito);
         $distrito = Distritos::where('distritos.nombre','=',$request->distrito)->first();
+
 
         if($distrito==null){
             $persona = Persona::firstOrCreate([
@@ -58,7 +59,7 @@ class PersonaController extends Controller
                 'nombre' => $request->nombre,
                 'ap_paterno' => $request->ap_paterno,
                 'ap_materno' => $request->ap_materno,
-                'distrito' => null,
+                'distrito' => 1,
                 'email' => $request->email,
                 'fec_nacimiento' => $request->fec_nacimiento,
                 'est_civil' => $request->est_civil,

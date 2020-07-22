@@ -30,8 +30,8 @@ class ValidadoresController extends Controller
         $result = User::join('roles_users', 'users.id', '=', 'roles_users.user_id')
         ->join('roles', 'roles.id', '=', 'roles_users.role_id')
         ->where('users.id','=',auth()->user()->id)
-        ->select('users.id as USERID','roles_users.role_id as ROLEID','roles.name as ROLENAME')
-        ->get();
+        ->select('users.id as USERID','roles_users.role_id as ROLEID','roles.name as ROLENAME','users.autorizado','users.validado')
+        ->first();
         return response()->json($result);
     }
 }

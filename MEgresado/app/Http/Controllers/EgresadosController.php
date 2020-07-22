@@ -176,6 +176,8 @@ class EgresadosController extends Controller
         )
         ->first();
 
+        
+
         $imagen = User::join('personas', 'users.id', '=', 'personas.user_id')
         ->join('egresados', 'personas.id', '=', 'egresados.persona_id')
         ->join('socials', 'users.id', '=', 'socials.user_id')
@@ -194,7 +196,7 @@ class EgresadosController extends Controller
         ,'egresados.celular','egresados.direccion','egresados.referencia',
         'departamentos.nombre as departamento_domicilio','provincias.nombre as provincia_domicilio',
         'distritos.nombre as distrito_domicilio','egresados.id as Egresado_id'
-        ,'egresados.ingreso','egresados.estado','egresados.egreso')
+        ,'egresados.ingreso','egresados.estado','egresados.egreso','egresados.fecha_estado')
         ->first();
 
         $escuelas = User::join('personas', 'users.id', '=', 'personas.user_id')
@@ -245,5 +247,17 @@ class EgresadosController extends Controller
         return "no tengo permisos";
     }
     
-
+    public function updateestado(Request $request,$id){
+        if($request->fecha_estado == null){
+            $egresados = Egresados::findOrFail($id);
+            $egresados->estado = $request->estado;
+            $egresados->save();
+        }else{
+            $egresados = Egresados::findOrFail($id);
+            $egresados->fecha_estado = $request->fecha_estado;
+            $egresados->estado = $request->estado;
+            $egresados->save();
+        }
+        return response()->json($egresados);
+    }
 }

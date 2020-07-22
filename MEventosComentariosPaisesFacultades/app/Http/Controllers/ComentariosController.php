@@ -60,7 +60,7 @@ class ComentariosController extends Controller
     public function showRespuesta($id)
     {
         $result = Comentarios::join('users', 'user_id', '=', 'users.id')
-        ->join('personas', 'users.personaid', '=', 'personas.id')
+        ->join('personas', 'users.id', '=', 'personas.user_id')
         ->where('comentarios.id','=',$id)
         ->select('personas.nombre','personas.ap_materno','personas.ap_paterno', 'comentarios.id',
         'comentarios.descripcionEgresado','comentarios.fecha_creacion','comentarios.respuesta',
