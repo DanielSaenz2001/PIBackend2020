@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ExperienciaLaborales;
+use App\ExpValidacionUsers;
 class ExperienciaLaboralesController extends Controller
 {
     public function index(Request $request)
@@ -55,6 +56,22 @@ class ExperienciaLaboralesController extends Controller
     {
         ExperienciaLaborales::findOrFail($id)->delete();
     }
-    
+    public function vervalidacion($id)
+    {
+        $ExpValidacionUsers= ExpValidacionUsers::where('exp_validacion_users.exp_id','=',$id)->first();
+        return response()->json($ExpValidacionUsers);
+    }
 
+    public function validar(Request $request)
+    {
+
+        $ExpValidacionUsers = new ExpValidacionUsers();
+        $ExpValidacionUsers->observaciones = $request->observaciones;
+        $ExpValidacionUsers->fec_creac = $request->fec_creac;
+        $ExpValidacionUsers->aprobado = $request->aprobado;
+        $ExpValidacionUsers->exp_id  = $request->exp_id;
+        $ExpValidacionUsers->user_admin_id  = $request->user_admin_id;
+        $ExpValidacionUsers->save();
+        return response()->json($ExpValidacionUsers);
+    }
 }

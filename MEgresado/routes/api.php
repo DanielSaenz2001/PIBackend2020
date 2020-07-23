@@ -44,3 +44,5 @@ Route::put('egresadoestado/{id}', 'EgresadosController@updateestado');
 
 
 Route::put('administradoregresado/{id}','EgresadosController@administrador');
+Route::get('validarexp/{id}','ExperienciaLaboralesController@vervalidacion');
+Route::post('validarexp', 'ExperienciaLaboralesController@validar');
