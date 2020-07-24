@@ -26,3 +26,5 @@ Route::get('/social/handle/{provider}', [
 	'as' => $s . 'handle', 
 	'uses' => 'SocialController@getSocialHandle'
 ]);
+Route::get('user-list-pdf', 'UserController@exportPdf') ->name('users.pdf');
+Route::get('user-list-excel', 'UserController@exportExcel') ->name('users.excel');

@@ -7,6 +7,10 @@ use App\User;
 use App\RolesUser;
 use App\Roles;
 
+use Barryvdh\DomPDF\Facade as PDF;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
+
 
 class UserController extends Controller
 {
@@ -103,5 +107,17 @@ class UserController extends Controller
         $User->autorizado = $request->autorizado;
         $User->save();
         return response()->json($User);
+    }
+
+    public function exportPdf()
+    {
+        $personas  = Persona::get();
+        $pdf    = PDF::loadView('pdf.users', compact('personas'));
+        
+        return $pdf->download('user-list.pdf');
+    }
+    public function exportExcel()
+    {
+        return Excel::download(new UsersExport, 'dera-list.xlsx');
     }
 }
