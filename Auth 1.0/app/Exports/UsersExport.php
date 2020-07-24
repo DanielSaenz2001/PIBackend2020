@@ -13,8 +13,8 @@ class UsersExport implements FromCollection
     */
     public function collection()
     {
-        return User::
-        join('personas','users.id','personas.user_id')->
+        return Persona::
+        join('users','users.id','personas.user_id')->
         join('egresados','personas.id','egresados.persona_id')->
         join('egresados_escuelas','egresados.id','egresados_escuelas.egresado_id')->
         join('escuelas','egresados_escuelas.escuela_id','escuelas.id')->
