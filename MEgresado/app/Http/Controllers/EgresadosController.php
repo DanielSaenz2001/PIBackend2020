@@ -155,9 +155,9 @@ class EgresadosController extends Controller
        
     }
 
-    public function administrador(Request $request,$id)
+    public function administrador($id)
     {
-        $rol = RolesUser::where('user_id','=',$request->idusuario)->first();
+       $rol = RolesUser::where('user_id','=',auth()->user()->id)->first();
 
         if($rol->role_id == "1" ){
             
@@ -245,6 +245,7 @@ class EgresadosController extends Controller
 
         }
         return "no tengo permisos";
+
     }
     
     public function updateestado(Request $request,$id){

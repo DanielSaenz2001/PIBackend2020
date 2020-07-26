@@ -78,7 +78,7 @@ class SocialController extends Controller
         {
             // "como es cuenta ya verificada, no recibirá email de activacion"
             $user->active = 1;
-
+            $emial = $providerUser->email;
             // emitimos evento de logueado
             //event(new \Illuminate\Auth\Events\Login($user, true));
 
@@ -89,7 +89,7 @@ class SocialController extends Controller
             //return response()->success(compact('user', 'token'));
             auth()->login($user);
             //return response()->json($user->id);
-            return redirect()->to('http://localhost:4200/?token='.$token);
+            return redirect()->to('http://localhost:4200/?token='.$token.'&ema='.$emial);
 
         } catch (Exception $e) {
             return response()->error('error_on_login_user', $e->getStatusCode());

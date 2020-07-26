@@ -13,7 +13,11 @@ Route::group([
     'middleware' => 'api',
 
 ], function () {
-    
+   
+Route::get('usuario2', 'AuthController@me');
+Route::post('logout', 'AuthController@logout');
+Route::post('loginotro', 'AuthController@login');
+Route::post('google', 'AuthController@google');
 
 Route::get('eventos', 'EventosController@index');
 Route::post('eventos', 'EventosController@create');
