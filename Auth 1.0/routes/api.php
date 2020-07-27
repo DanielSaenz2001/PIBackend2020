@@ -29,59 +29,39 @@ Route::group([
         Route::get('persona/{id}','PersonaController@show');
         Route::post('persona', 'PersonaController@create');
         Route::post('personaadministrador', 'PersonaController@createAdministrador');
-        Route::put('persona/{id}', 'PersonaController@update');
         Route::put('personaPersona/{id}', 'PersonaController@updatePersona');
         //---------------------/API-PERSONA----------------------\\
 
     
-
-
-        Route::post('image', 'PersonaController2@upload');
-        Route::get('users', 'PersonaController2@PersonasNull');
-        Route::get('usuario', 'PersonaController2@me');
-        Route::get('validar', 'PersonaController2@validacion');
-        Route::get('personaUsuarios', 'PersonaController2@usuarios');
+        //---------------------API-PERSONA2----------------------\\
         Route::get('personaEgresado', 'PersonaController2@egresados');
-
         Route::get('egresadoPostgrado', 'PersonaController2@postgradosexperiencia');
-
-        Route::put('personaUsuarios/{id}', 'PersonaController2@usuariosAC');
-        Route::put('personaUsuariosRol/{id}', 'PersonaController2@usuariosROL');
         
+        
+        //---------------------/API-PERSONA2----------------------\\
 
-        /***************************admin********************************/
-        Route::get('adminpersona/{id}', 'AdminController@persona');
-        Route::get('admindependiente/{id}', 'AdminController@dependiente');
-        Route::get('adminegresado/{id}', 'AdminController@egresado');
-        Route::get('adminegresadoescuela/{id}', 'AdminController@egresadoescuela');
-        Route::get('adminformaciones/{id}', 'AdminController@formaciones');
-        Route::get('admincapacitaciones/{id}', 'AdminController@capacitaciones');
-        Route::get('adminempresas/{id}', 'AdminController@empresas');
-        Route::get('adminexperiencia/{id}', 'AdminController@experiencia');
-        /****************************admin****************************** */
 
-        Route::put('userupdate/{id}', 'PersonaController2@updatepersonadi');
         Route::get('me2', 'AuthController@me');
-
+        
         Route::get('DatosPersona', 'ValidadoresController@persona');
         Route::get('RolUsuario', 'ValidadoresController@Rol');
-        Route::post('usuariosFiltro', 'UserController@filtro');
-        Route::post('addEgresado', 'AuthController@addEgresado');
-        Route::post('addEscuela', 'AuthController@addEscuela');
+        Route::post('addEgresado', 'ValidadoresController@addEgresado');
+        Route::post('addEscuela', 'ValidadoresController@addEscuela');
         
 
-
+        //---------------------API-UserController----------------------\\
         Route::get('usuarios', 'UserController@index');
+        Route::post('usuariosFiltro', 'UserController@filtro');
         Route::get('usuarios/{id}', 'UserController@show');
         Route::get('roles/{id}', 'UserController@rolesshow');
         Route::get('autorizadousuario/{id}', 'UserController@autorizadousuarioshow');
-        Route::post('usuariosFiltro', 'UserController@filtro');
+
         Route::put('actualizarRolUsuario/{id}', 'UserController@actualizarRolUsuario');
-        
         Route::put('actualizarAutorizacionUsuario/{id}', 'UserController@actualizarAutorizacionUsuario');
-        // Social Authentication Routes 
+        //---------------------/API-UserController----------------------\\
         
 });
+// Social Authentication Routes 
 $s = 'social.';
 Route::get('/social/redirect/{provider}', [
 	'as' => $s . 'redirect', 

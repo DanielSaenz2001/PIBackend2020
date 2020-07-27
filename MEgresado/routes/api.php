@@ -30,13 +30,18 @@ Route::group([
 
     Route::get('egresado', 'EgresadosController@index');
     Route::get('egresado/{id}','EgresadosController@show');
-    Route::get('egresadoescuela/{id}','EgresadosEscuelasController@show');
+    Route::post('egresadocodigo', 'BuscarEgresadosController@EgresadoCodigo');
+    Route::post('egresadoFiltro', 'EgresadosController@filtrarEgresado');
+    
+
     Route::post('egresado', 'EgresadosController@create');
-    Route::post('egresadoescuela', 'EgresadosEscuelasController@create');
-    Route::put('egresado/{id}', 'EgresadosController@update');
     Route::put('egresadoEgresado/{id}', 'EgresadosController@updateEgresado');
     Route::put('egresadoPersona/{id}', 'EgresadosController@PersonaEgresado');
-    Route::post('egresadoFiltro', 'EgresadosController@filtrarEgresado');
+    Route::put('egresadoestado/{id}', 'EgresadosController@updateestado');
+    Route::get('administradoregresado/{id}','EgresadosController@administrador');
+
+    Route::get('egresadoescuela/{id}','EgresadosEscuelasController@show');
+    Route::post('egresadoescuela', 'EgresadosEscuelasController@create');
 
     Route::get('postgrado', 'PostgradosController@index');
     Route::get('postgrado/{id}','PostgradosController@show');
@@ -49,13 +54,6 @@ Route::group([
     Route::post('experiencia', 'ExperienciaLaboralesController@create');
     Route::put('experiencia/{id}', 'ExperienciaLaboralesController@update');
     Route::delete('experiencia/{id}', 'ExperienciaLaboralesController@destroy');
-
-    Route::post('egresadocodigo', 'EgresadosController@EgresadoCodigo');
-    Route::get('egresadome', 'PruebaController@me');
-    Route::put('egresadoestado/{id}', 'EgresadosController@updateestado');
-
-
-    Route::get('administradoregresado/{id}','EgresadosController@administrador');
     Route::get('validarexp/{id}','ExperienciaLaboralesController@vervalidacion');
     Route::post('validarexp', 'ExperienciaLaboralesController@validar');
     

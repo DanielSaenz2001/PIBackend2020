@@ -19,6 +19,8 @@ Route::post('logout', 'AuthController@logout');
 Route::post('loginotro', 'AuthController@login');
 Route::post('google', 'AuthController@google');
 
+
+
 Route::get('eventos', 'EventosController@index');
 Route::post('eventos', 'EventosController@create');
 Route::get('eventos/{id}', 'EventosController@show');
@@ -28,13 +30,14 @@ Route::get('eventosDispo', 'EventosController@visibles');
 //-----------------------/API-Eventos------------------------\\indexNorespuesta
 Route::get('Comentarios', 'ComentariosController@index');
 Route::get('ComentariosNoRespuesta', 'ComentariosController@indexNorespuesta');
-Route::post('Comentarios', 'ComentariosController@create');
 Route::get('Comentarios/{id}', 'ComentariosController@show');
 Route::get('ComentariosRespuesta/{id}', 'ComentariosController@showRespuesta');
+Route::get('ComentariosDispo', 'ComentariosController@norespuesta');
+
+Route::post('Comentarios', 'ComentariosController@create');
 Route::put('Comentarios/{id}', 'ComentariosController@update');
 Route::put('ComentariosUpdateRespuesta/{id}', 'ComentariosController@Respuesta');
 Route::delete('Comentarios/{id}', 'ComentariosController@destroy');
-Route::get('ComentariosDispo', 'ComentariosController@norespuesta');
 //-----------------------/API-Comentario------------------------\\
 
 Route::get('paises', 'PaisController@paises');

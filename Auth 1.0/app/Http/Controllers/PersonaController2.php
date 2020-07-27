@@ -8,59 +8,11 @@ use Illuminate\Http\Request;
 
 class PersonaController2 extends Controller
 {
-
-
-    public function updatepersonadi(Request $request, $id){
-        $user = User::findOrFail($id);
-        $user->validado = $request[0];
-        $user->save();
-        return response()->json($user);
-    }
-    
-    public function PersonasNull(){
-        $result = User::join('personas', 'personaid', '=', 'personas.id')
-        ->where('users.id','=',auth()->user()->id)->first();
- 
-         $resultado = Persona::join('provincias', 'personas.provincia', '=', 'provincias.id')
-        ->join('departamentos', 'provincias.dep_id', '=', 'departamentos.id')
-        ->join('paises', 'departamentos.pais_id', '=', 'paises.id')
-        ->where([['personas.dependiente','=',$result->id]])
-
-        ->select('personas.nombre','personas.ap_materno',
-        'personas.ap_paterno', 'paises.nombre as pais',
-        'personas.email','personas.fec_nacimiento','personas.est_civil','personas.sexo'
-        ,'personas.dependiente','departamentos.nombre as departamentos','personas.id as persona_ID','provincias.nombre as provincia')
-        ->get();
-
-        return response()->json($resultado); 
-    }
-
-    
-    public function usuarios()
+    public function __construct()
     {
+        $this->middleware('auth:api');
+    }
 
-        $users = User::join('personas', 'personaid', '=', 'personas.id')
-        ->select('users.id','users.name as usuario','users.avatar','users.activo','users.email','users.rol',
-        'personas.ap_paterno','personas.dni','personas.nombre'
-        ,'personas.ap_materno')
-        ->get();
-
-        return response()->json($users);
-    }
-    public function usuariosAC(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-        $user->activo = $request->ac;
-        $user->save();
-        return response()->json($user);
-    }
-    public function usuariosROL(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-        $user->rol = $request->rol;
-        $user->save();
-        return response()->json($user);
-    }
     public function egresados()
     {
         $persona = User::join('personas', 'users.id', '=', 'personas.user_id')

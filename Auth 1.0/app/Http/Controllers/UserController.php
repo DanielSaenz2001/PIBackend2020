@@ -14,6 +14,11 @@ use App\Exports\UsersExport;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['index', 'filtro','show'
+        ,'rolesshow','rolesshow','autorizadousuarioshow','exportExcel','exportPdf','exportPdf2']]);
+    }
     public function index(Request $request)
     {
         $result = User::join('personas', 'users.id', '=', 'personas.user_id')
@@ -96,28 +101,121 @@ class UserController extends Controller
     
     public function actualizarRolUsuario(Request $request, $id)
     {
-        $RolesUser = RolesUser::findOrFail($id);
-        $RolesUser->role_id = $request->role_id;
-        $RolesUser->save();
-        return response()->json($RolesUser);
+        $user = User::join('roles_users', 'users.id', '=', 'roles_users.user_id')
+        ->where('users.id','=',auth()->user()->id)
+        ->select('roles_users.role_id as ROLEID','users.autorizado','users.validado')
+        ->first();
+        if($user->ROLEID == 1){
+            $RolesUser = RolesUser::findOrFail($id);
+            $RolesUser->role_id = $request->role_id;
+            $RolesUser->save();
+        }
+        
     }
     public function actualizarAutorizacionUsuario(Request $request, $id)
     {
-        $User = User::findOrFail($id);
-        $User->autorizado = $request->autorizado;
-        $User->save();
-        return response()->json($User);
+        $user = User::join('roles_users', 'users.id', '=', 'roles_users.user_id')
+        ->where('users.id','=',auth()->user()->id)
+        ->select('roles_users.role_id as ROLEID','users.autorizado','users.validado')
+        ->first();
+        if($user->ROLEID == 1){
+            $User = User::findOrFail($id);
+            $User->autorizado = $request->autorizado;
+            $User->save();
+        }
     }
 
-    public function exportPdf()
+    public function exportPdf($id)
     {
-        $personas  = Persona::get();
-        $pdf    = PDF::loadView('pdf.users', compact('personas'));
-        
-        return $pdf->download('user-list.pdf');
+
+            $personas  = Persona::join('users','users.id','personas.user_id')->
+            join('egresados','personas.id','egresados.persona_id')->
+            join('egresados_escuelas','egresados.id','egresados_escuelas.egresado_id')->
+            join('escuelas','egresados_escuelas.escuela_id','escuelas.id')->
+            join('facultades','escuelas.facultad_id','facultades.id')->
+            join('distritos', 'egresados.distrito_id', 'distritos.id')->
+            join('provincias', 'distritos.pro_id', 'provincias.id')->
+            join('departamentos', 'provincias.dep_id', 'departamentos.id')->
+            join('paises', 'departamentos.pais_id', 'paises.id')->
+            where('users.id','=',$id)->
+            select('personas.nombre','personas.ap_paterno','personas.ap_materno','personas.dni',
+            'personas.fec_nacimiento','personas.sexo', 'personas.email','egresados.celular',
+            'egresados.codigo','egresados.egreso','escuelas.nombre as escuelas','facultades.nombre as facultades',
+            'paises.nombre as pais_domicilio','departamentos.nombre as departamento_domicilio',
+            'provincias.nombre as provincia_domicilio','distritos.nombre as distrito_domicilio',
+            'egresados.direccion','egresados.referencia')->get();
+
+            $xp  = Persona::join('users','users.id','personas.user_id')->
+            join('egresados','personas.id','egresados.persona_id')->
+            join('experiencia_laborales','egresados.id','experiencia_laborales.egresado_id')->
+            where('users.id','=',$id)->
+            select('experiencia_laborales.empresa','experiencia_laborales.rubro_empresa',
+            'experiencia_laborales.inicio','experiencia_laborales.final')->get();
+
+            $pg  = Persona::join('users','users.id','personas.user_id')->
+            join('egresados','personas.id','egresados.persona_id')->
+            join('postgrados_otros','egresados.id','postgrados_otros.egresado_id')->
+            where('users.id','=',$id)->
+            select('postgrados_otros.agrado_academico','postgrados_otros.entidad',
+            'postgrados_otros.desde','postgrados_otros.hasta')->get();
+            $pdf = PDF::loadView('pdf.users', compact('personas','xp','pg'));
+
+            $nombre= Persona::join('users','users.id','personas.user_id')->
+            join('egresados','personas.id','egresados.persona_id')->
+            where('users.id','=',$id)->
+            select('personas.nombre','personas.ap_paterno','personas.ap_materno','personas.dni',
+            'personas.fec_nacimiento','personas.sexo', 'personas.email','egresados.celular',
+            'egresados.codigo')->first();
+
+            return $pdf->download('CURRICULUM_VITAE_'.$nombre->codigo.'.pdf');
+    }
+    public function exportPdf2($id)
+    {
+
+            $personas  = Persona::join('users','users.id','personas.user_id')->
+            join('egresados','personas.id','egresados.persona_id')->
+            join('egresados_escuelas','egresados.id','egresados_escuelas.egresado_id')->
+            join('escuelas','egresados_escuelas.escuela_id','escuelas.id')->
+            join('facultades','escuelas.facultad_id','facultades.id')->
+            join('distritos', 'egresados.distrito_id', 'distritos.id')->
+            join('provincias', 'distritos.pro_id', 'provincias.id')->
+            join('departamentos', 'provincias.dep_id', 'departamentos.id')->
+            join('paises', 'departamentos.pais_id', 'paises.id')->
+            where('egresados.id','=',$id)->
+            select('personas.nombre','personas.ap_paterno','personas.ap_materno','personas.dni',
+            'personas.fec_nacimiento','personas.sexo', 'personas.email','egresados.celular',
+            'egresados.codigo','egresados.egreso','escuelas.nombre as escuelas','facultades.nombre as facultades',
+            'paises.nombre as pais_domicilio','departamentos.nombre as departamento_domicilio',
+            'provincias.nombre as provincia_domicilio','distritos.nombre as distrito_domicilio',
+            'egresados.direccion','egresados.referencia')->get();
+
+            $xp  = Persona::join('users','users.id','personas.user_id')->
+            join('egresados','personas.id','egresados.persona_id')->
+            join('experiencia_laborales','egresados.id','experiencia_laborales.egresado_id')->
+            where('egresados.id','=',$id)->
+            select('experiencia_laborales.empresa','experiencia_laborales.rubro_empresa',
+            'experiencia_laborales.inicio','experiencia_laborales.final')->get();
+
+            $pg  = Persona::join('users','users.id','personas.user_id')->
+            join('egresados','personas.id','egresados.persona_id')->
+            join('postgrados_otros','egresados.id','postgrados_otros.egresado_id')->
+            where('egresados.id','=',$id)->
+            select('postgrados_otros.agrado_academico','postgrados_otros.entidad',
+            'postgrados_otros.desde','postgrados_otros.hasta')->get();
+            $pdf = PDF::loadView('pdf.users', compact('personas','xp','pg'));
+
+            $nombre= Persona::join('users','users.id','personas.user_id')->
+            join('egresados','personas.id','egresados.persona_id')->
+            where('egresados.id','=',$id)->
+            select('personas.nombre','personas.ap_paterno','personas.ap_materno','personas.dni',
+            'personas.fec_nacimiento','personas.sexo', 'personas.email','egresados.celular',
+            'egresados.codigo')->first();
+
+            return $pdf->download('CURRICULUM_VITAE_'.$nombre->codigo.'.pdf');
     }
     public function exportExcel()
     {
-        return Excel::download(new UsersExport, 'dera-list.xlsx');
+        $pg =Excel::download(new UsersExport, 'dera-list.xlsx');
+        return $pg;
     }
 }
