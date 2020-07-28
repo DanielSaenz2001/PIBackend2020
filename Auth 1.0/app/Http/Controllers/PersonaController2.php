@@ -12,7 +12,7 @@ class PersonaController2 extends Controller
     {
         $this->middleware('auth:api');
     }
-
+    
     public function egresados()
     {
         $persona = User::join('personas', 'users.id', '=', 'personas.user_id')
@@ -46,7 +46,7 @@ class PersonaController2 extends Controller
         ,'egresados.celular','egresados.direccion','egresados.referencia',
         'departamentos.nombre as departamento_domicilio','provincias.nombre as provincia_domicilio',
         'distritos.nombre as distrito_domicilio','egresados.id as Egresado_id'
-        ,'egresados.ingreso','egresados.estado','egresados.egreso')
+        ,'egresados.ingreso','egresados.estado','egresados.egreso','egresados.profesional')
         ->first();
 
         $escuelas = User::join('personas', 'users.id', '=', 'personas.user_id')

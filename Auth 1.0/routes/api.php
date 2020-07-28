@@ -32,7 +32,7 @@ Route::group([
         Route::put('personaPersona/{id}', 'PersonaController@updatePersona');
         //---------------------/API-PERSONA----------------------\\
 
-    
+        
         //---------------------API-PERSONA2----------------------\\
         Route::get('personaEgresado', 'PersonaController2@egresados');
         Route::get('egresadoPostgrado', 'PersonaController2@postgradosexperiencia');

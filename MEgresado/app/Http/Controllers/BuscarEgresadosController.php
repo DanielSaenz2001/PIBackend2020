@@ -28,7 +28,7 @@ class BuscarEgresadosController extends Controller
         if($egresado == null){
         $codigo =strval( $request->codigo );
 
-        $data =json_decode( file_get_contents ('http://localhost:9000/api/egresado/codigo/'.$codigo), true );
+        $data =json_decode( file_get_contents ('https://protected-ocean-96714.herokuapp.com/api/egresado/codigo/'.$codigo), true );
             if($data == null){
                 return response()->json(['egresado' => null, 
                 'upeu' => null]);

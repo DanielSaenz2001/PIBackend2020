@@ -34,6 +34,10 @@ class PersonaController extends Controller
         $persona->validado = 0;
         $persona->user_id = auth()->user()->id;
         $persona->save();
+
+        $user = User::findOrFail(auth()->user()->id);
+        $user->validado = 1;
+        $user->save();
         return response()->json($persona);
     }
 

@@ -33,8 +33,9 @@ Route::group([
     Route::post('egresadocodigo', 'BuscarEgresadosController@EgresadoCodigo');
     Route::post('egresadoFiltro', 'EgresadosController@filtrarEgresado');
     
-
+    
     Route::post('egresado', 'EgresadosController@create');
+    Route::get('egresadoProfesional', 'EgresadosController@profesional');
     Route::put('egresadoEgresado/{id}', 'EgresadosController@updateEgresado');
     Route::put('egresadoPersona/{id}', 'EgresadosController@PersonaEgresado');
     Route::put('egresadoestado/{id}', 'EgresadosController@updateestado');

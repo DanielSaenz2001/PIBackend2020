@@ -104,6 +104,7 @@ class ValidadoresController extends Controller
             'departamento_id' => $departamentos,
             'provincia_id' => $provincias,
             'distrito_id' => $distritos,
+            'profesional' => 0,
             'ingreso' => $request->ingreso,
             'egreso' => $request->egreso,
             'estado' => "0",

@@ -70,6 +70,7 @@ class EgresadosController extends Controller
             $egresados->egreso   = $request->egreso;
             $egresados->estado   = "0";
             $egresados->fecha_estado   = null;
+            $egresados->profesional   = 0;
             $egresados->save();
             return response()->json($egresados);
         }
@@ -79,7 +80,22 @@ class EgresadosController extends Controller
         $egresados= Egresados::findOrFail($id);
         return response()->json($egresados);
     }
+    public function profesional()
+    {
+        $user = Persona::join('users','personas.user_id','users.id')
+        ->join('egresados','personas.id','egresados.persona_id')
+        ->join('roles_users','roles_users.user_id','users.id')
+        ->where('users.id','=',auth()->user()->id)
+        ->select('egresados.id as egresado','personas.validado as vali'
+        ,'users.autorizado','users.validado','roles_users.role_id as role')
+        ->first();
 
+        $egresados= Egresados::findOrFail($user->egresado);
+        $egresados->profesional = 1;
+        $egresados->save();
+        
+        return response()->json($egresados);
+    }
 
     public function updateEgresado(Request $request, $id)
     {
@@ -190,7 +206,7 @@ class EgresadosController extends Controller
             ,'egresados.celular','egresados.direccion','egresados.referencia',
             'departamentos.nombre as departamento_domicilio','provincias.nombre as provincia_domicilio',
             'distritos.nombre as distrito_domicilio','egresados.id as Egresado_id'
-            ,'egresados.ingreso','egresados.estado','egresados.egreso','egresados.fecha_estado')
+            ,'egresados.ingreso','egresados.estado','egresados.egreso','egresados.fecha_estado','egresado.profesional')
             ->first();
 
             $escuelas = User::join('personas', 'users.id', '=', 'personas.user_id')
